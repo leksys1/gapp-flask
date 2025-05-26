@@ -26,7 +26,7 @@ document.getElementById('predictionForm').addEventListener('submit', async funct
     };
 
     try {
-        const response = await fetch('http://localhost:8000/api/hfp_prediction', {
+        const response = await fetch('https://gapp-flask.onrender.com/predict', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ inputs: [inputData] })
