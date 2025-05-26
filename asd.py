@@ -26,12 +26,16 @@ encoder.fit_transform(data[categorical_features])
 
 # Initialize Flask app
 api = Flask(__name__)
-CORS(api)
+CORS(api)  # Enable CORS globally
 
 # Cancer risk prediction endpoint
-@api.route('/predict', methods=['POST'])
+@api.route('/predict', methods=['POST', 'OPTIONS'])
 @cross_origin(origins='*')
 def predict_cancer_risk():
+    if request.method == 'OPTIONS':
+        # Handle CORS preflight request
+        return '', 200
+
     try:
         data = request.json['inputs']
         input_df = pd.DataFrame(data)
