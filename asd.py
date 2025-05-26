@@ -3,6 +3,7 @@ from flask_cors import CORS, cross_origin
 import pandas as pd
 from joblib import load
 from category_encoders import BinaryEncoder
+import os
 
 # Load cancer prediction model
 model = load("decision_tree_model.joblib")
@@ -65,4 +66,5 @@ def predict_cancer_risk():
         return jsonify({"error": str(e)}), 400
 
 if __name__ == "__main__":
-    api.run(debug=True, host='0.0.0.0', port=5000)
+    port = int(os.environ.get("PORT", 5000))
+    api.run(debug=True, host='0.0.0.0', port=port)
